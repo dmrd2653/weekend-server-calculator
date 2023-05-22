@@ -1,11 +1,11 @@
 // Javascript
 
-let mathProblem = {};
+
 
 // function to submit math problem
 function sendMathProb(event) {
     event.preventDefault();
-
+    let mathProblem = {};
     let firstInput = document.querySelector('#input1').value;
     let operate = document.querySelector('#mathOp').value;
     let secondInput = document.querySelector('#input2').value;
@@ -25,8 +25,8 @@ function sendMathProb(event) {
         document.querySelector('#input1').value = '';
         document.querySelector('#mathOp').value = '';
         document.querySelector('#input2').value = '';
-        // calls the function to solve
-        solve(mathProblem);
+        // calls the math problem
+        mathProblem;
     }).catch((error) => {
         console.log('OH No......', error);
         alert('Something went wrong.');
@@ -62,3 +62,4 @@ function solve(mathProblem) {
     }
     return sum;
 };
+
