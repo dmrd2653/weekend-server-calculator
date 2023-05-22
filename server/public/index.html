@@ -10,13 +10,11 @@
     <h1>Server Calculator</h1>
     <form onsubmit="sendMathProb(event)">
         <input type='text' id='input1' placeholder='Number'/>
-        <button onclick="addition(event)" id='add'>+</button>
-        <button onclick="sub(event)" id='subtract'>-</button>
-        <button onclick="multi(event)" id='multiply'>*</button>
-        <button onclick="divi(event)" id='divide'>/</button>
+        <input type='text' id='mathOp' placeholder="+ - * /"/>
         <input type='text' id='input2' placeholder='Number'/>
         <button type='submit' id='sendInputs'>=</button>
         <button type="reset" id="clearInputs">C</button>
       </form>
 </body>
+    <script src="scripts/client.js"></script>
 </html>
