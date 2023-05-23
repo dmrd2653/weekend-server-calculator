@@ -8,43 +8,40 @@ app.listen(PORT, () => {
     console.log('Listening on port', PORT);
 })
 
+// part of the POST request.
 // function to solve the math problem and push
-// it into an empty array for the client to get with 
-// a GET method
+// it into an empty array for the client
 let mathHistory = [];
 
-app.post('/mathProblem', (req, res) => {
-    mathProblem.push(req.body);
-
-
-    let x = Number(mathProblem.firstNumber);
-    let operator = mathProblem.mathOperator;    
-    let y = Number(mathProblem.secondNumber);
-    let z = Number(answer);
+app.post('/mathHistory', (req, res) => {
+    let x = Number(req.body.firstNumber);
+    let operator = req.body.mathOperator;    
+    let y = Number(req.body.secondNumber);
+    let answer;
+    
+    if (operator === "+") {
+        answer =  x + y;
+    } else if (operator === "-") {
+        answer =  x - y;
+    } else if (operator === "*") {
+        answer =  x * y;
+    }else if (operator === "/") {
+        answer =  x / y;
+    } else {
+        undefined;
+    }
     let equation = {
         firstNumber: x,
         mathOperator: operator,
         secondNumber: y,
-        answer: z
+        answer
     };
-    if (operator === "+") {
-        z =  x + y;
-    } else if (operator === "-") {
-        z =  x - y;
-    } else if (operator === "*") {
-        z =  x * y;
-    }else if (operator === "/") {
-        z =  x / y;
-    } else {
-        undefined;
-    }
     mathHistory.push(equation);
     res.sendStatus(201);
 });
 
 
-
-// app.get('/mathProblem', (req, res) => {
-//     console.log(`Handling ${req.method} ${req.url}`);
-//     res.send(mathProblem);
-// });
+// part of the GET request
+app.get('/mathHistory', (req, res) => {
+    res.send(mathHistory);
+});

@@ -12,9 +12,9 @@ function sendMathProb(event) {
         firstNumber: firstInput,
         mathOperator: operate,
         secondNumber: secondInput
-    }
-    // POST Method to send object to server
-    fetch('/mathProblem', {
+    };
+    // POST request to send object to server
+    fetch('/mathHistory', {
         method: 'POST',
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(mathProblem),
@@ -24,12 +24,32 @@ function sendMathProb(event) {
         document.querySelector('#input1').value = '';
         document.querySelector('#mathOp').value = '';
         document.querySelector('#input2').value = '';
-        // calls the math problem
-        // mathProblem;
+        getEquation();
+    }).catch((error) => {
+        console.log('OH No......', error);
+        alert('Something went wrong.');
+    })
+};
+// a GET request to acquire mathProblem + answer from server 
+// (i.e. mathHistory array) and place it in the history div
+function getEquation() {
+    fetch('/mathHistory').then ((response) =>
+    {console.log('Response received', response);
+    return response.json();
+    }).then ((mathHistory) => {
+        let contentOfDiv = document.querySelector('#history');
+        contentOfDiv.innerHTML = "";
+        for (let equation of mathHistory) {
+        contentOfDiv.innerHTML += `
+        <p> 
+        ${equation.firstNumber} 
+        ${equation.mathOperator} 
+        ${equation.secondNumber} 
+        = ${equation.answer} </p>`
+        };
     }).catch((error) => {
         console.log('OH No......', error);
         alert('Something went wrong.');
     })
 };
 
-// module.exports = mathProblem;
